@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Navbar({onCreateClick}) {
   return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-white shadow-sm rounded-b-xl">
+    <nav className="flex  items-center justify-between sticky top-0 px-6 py-4 bg-white shadow-sm rounded-b-xl">
       {/* Left: Logo + Brand */}
       <div className="flex items-center space-x-2">
         <Menu className="w-5 h-5 text-black md:hidden" />
@@ -14,8 +14,8 @@ function Navbar({onCreateClick}) {
 
       {/* Center: Nav Links */}
       <div className="hidden md:flex space-x-6 font-medium text-sm text-gray-800">
-        <Link >Home</Link>
-        <Link>Dashboard</Link>
+        <Link to={'/'}>Home</Link>
+        <Link to={'/dashboard'}>Dashboard</Link>
       </div>
 
       {/* Right: Create Button + Icons */}

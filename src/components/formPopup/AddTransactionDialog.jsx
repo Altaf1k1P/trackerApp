@@ -1,120 +1,106 @@
-import React, { useState } from 'react'
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { DollarSign, Calendar, Pencil } from 'lucide-react'
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-const defaultFormState = {
-  amount: '',
-  date: '',
-  description: '',
-}
+const categories = ["Food", "Transport", "Entertainment", "Health", "Other"];
 
-const AddTransactionDialog = ({open, setOpen}) => {
-  
-  const [formData, setFormData] = useState(defaultFormState)
+const AddTransactionDialog = ({ open, onClose, onSubmit, initialData }) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      description: "",
+      amount: "",
+      date: "",
+      category: "Other",
+    },
+  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  useEffect(() => {
+    if (initialData) {
+      reset(initialData); // pre-fill form for edit
+    } else {
+      reset(); // clear form for add
+    }
+  }, [initialData, reset]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Submitted:', formData)
-    // TODO: Send to backend or update global state
-    setFormData(defaultFormState)
-    setOpen(false)
-  }
+  const handleFormSubmit = (data) => {
+    onSubmit(data);
+    onClose();
+  };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen} >
-
-      <DialogContent className="sm:max-w-md ">
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">Add a Transaction</DialogTitle>
+          <DialogTitle>
+            {initialData ? "Edit Transaction" : "Add Transaction"}
+          </DialogTitle>
         </DialogHeader>
-
-        <form onSubmit={handleSubmit} className="space-y-6 w-[60%]">
-          {/* Amount */}
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4 mt-2">
           <div>
-            <label htmlFor="amount" className="block mb-1 text-sm font-medium">
-              Amount
-            </label>
-            <div className="relative">
-              <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                id="amount"
-                name="amount"
-                type="number"
-                placeholder="$0.00"
-                value={formData.amount}
-                onChange={handleChange}
-                className="pl-10"
-                autoComplete="off"
-                required
-              />
-            </div>
+            <Label>Description</Label>
+            <Input
+              autoFocus
+              placeholder="Description"
+              {...register("description", { required: true })}
+            />
+            {errors.description && (
+              <p className="text-sm text-red-500">Description is required</p>
+            )}
           </div>
 
-          {/* Date */}
           <div>
-            <label htmlFor="date" className="block mb-1 text-sm font-medium">
-              Date
-            </label>
-            <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                id="date"
-                name="date"
-                type="date"
-                value={formData.date}
-                onChange={handleChange}
-                className="pl-10"
-                required
-              />
-            </div>
+            <Label>Amount</Label>
+            <Input
+              type="number"
+              step="0.01"
+              placeholder="Amount"
+              {...register("amount", { required: true })}
+            />
+            {errors.amount && (
+              <p className="text-sm text-red-500">Amount is required</p>
+            )}
           </div>
 
-          {/* Description */}
           <div>
-            <label htmlFor="description" className="block mb-1 text-sm font-medium">
-              Description
-            </label>
-            <div className="relative">
-              <Pencil className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                id="description"
-                name="description"
-                type="text"
-                placeholder="e.g. Groceries"
-                value={formData.description}
-                onChange={handleChange}
-                className="pl-10"
-                autoComplete="off"
-                required
-              />
-            </div>
+            <Label>Date</Label>
+            <Input type="date" {...register("date")} />
           </div>
 
-          {/* Actions */}
-          <DialogFooter className="flex justify-end gap-2">
-            <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button type="submit">Save</Button>
-          </DialogFooter>
+          <div>
+            <Label htmlFor="category">Category</Label>
+            <select
+              id="category"
+              {...register("category")}
+              className="p-2 border rounded w-full"
+            >
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <Button type="submit" className="w-full">
+            {initialData ? "Update" : "Add"}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default AddTransactionDialog
+export default AddTransactionDialog;

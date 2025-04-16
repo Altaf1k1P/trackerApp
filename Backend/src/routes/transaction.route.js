@@ -9,8 +9,8 @@ import { addTransaction,
 const router = Router()
 
 router.post("/add-transaction", addTransaction);
-router.patch("/update-transaction", updateTransaction);
-router.delete("/delete-transaction", deleteTransaction);
+router.patch("/update-transaction/:transactionId", updateTransaction);
+router.delete("/delete-transaction/:transactionId", deleteTransaction);
 router.get("/get-transactions", getAllTransactions);
 router.get("/recent-transactions", getRecentTransactions);
 router.get("/category-breakdown", getCategoryBreakdown);

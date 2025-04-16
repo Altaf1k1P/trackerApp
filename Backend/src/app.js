@@ -13,6 +13,8 @@ app.use(express.json({limit: "16kb"}));
 //   });
 // router main point
 import transactionRoute from "./routes/transaction.route.js";
+import budgetRoutes from "./routes/bedget.route.js"; 
 app.use("/api", transactionRoute)
+app.use("/api",budgetRoutes);
 
 export default app;
