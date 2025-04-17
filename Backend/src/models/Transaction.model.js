@@ -1,4 +1,3 @@
-import { Type } from 'lucide-react';
 import mongoose, {Schema} from 'mongoose';
 
 const transactionSchema = new Schema({
