@@ -1,21 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useDispatch, useSelector } from "react-redux";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { fetchBudgetVsActual } from "@/store/analyticsSlice"; // You'll create this thunk
+import { fetchBudgetVsActual } from "@/store/analyticsSlice";
+import { Button } from "@/components/ui/button";
 
 function BudgetVsActualChart() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.analytics.budgetVsActual);
 
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  });
+
   useEffect(() => {
-    dispatch(fetchBudgetVsActual("2025-04")); // You can dynamically change the month
-  }, [dispatch]);
+    dispatch(fetchBudgetVsActual(selectedMonth));
+  }, [dispatch, selectedMonth]);
 
   return (
     <Card className="p-4">
       <CardContent>
-        <h2 className="font-semibold text-lg mb-4">Budget vs Actual</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="font-semibold text-lg">Budget vs Actual</h2>
+          <div className="flex items-center gap-2">
+            <input
+              type="month"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="border p-2 rounded text-sm"
+            />
+            <Button onClick={() => dispatch(fetchBudgetVsActual(selectedMonth))}>
+              Filter
+            </Button>
+          </div>
+        </div>
 
         {loading ? (
           <p className="text-muted-foreground text-sm">Loading...</p>

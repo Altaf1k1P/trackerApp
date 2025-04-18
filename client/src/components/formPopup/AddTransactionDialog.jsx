@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const categories = ["Food", "Transport", "Entertainment", "Health", "Other"];
+const categories = ["Food", "Transport", "Entertainment", "Health", "Others"];
 
 const AddTransactionDialog = ({ open, onClose, onSubmit, initialData }) => {
   const {
@@ -23,7 +23,7 @@ const AddTransactionDialog = ({ open, onClose, onSubmit, initialData }) => {
       description: "",
       amount: "",
       date: "",
-      category: "Other",
+      category: "Others",
     },
   });
 

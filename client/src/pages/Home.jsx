@@ -21,7 +21,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const transactions = useSelector((state) => state.transactions.list);
-  const budgets = useSelector((state) => state.analytics.items); // fixed selector
+  const budgets = useSelector((state) => state.analytics.items); 
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editData, setEditData] = useState(null);

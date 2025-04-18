@@ -3,6 +3,7 @@ import { Transaction } from "../models/Transaction.model.js";
 
 //add
 const addTransaction = async(req, res)=>{
+  console.log("POST /add-budget called", req.body);
     
     try {
         const {amount: rawAmount, date, description, category} = req.body;

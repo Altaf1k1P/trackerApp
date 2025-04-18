@@ -6,6 +6,8 @@ export const fetchBudgetVsActual = createAsyncThunk(
   "analytics/fetchBudgetVsActual",
   async (month) => {
     const res = await axio.get(`/budget-vs-actual?month=${month}`);
+    console.log("b",res);
+    
     return res.data;
   }
 );
@@ -13,7 +15,7 @@ export const fetchBudgetVsActual = createAsyncThunk(
 export const fetchBudgets = createAsyncThunk(
   "analytics/fetchBudgets",
   async () => {
-    const res = await axio.get("/api/budgets");
+    const res = await axio.get("/budgets");
     return res.data;
   }
 );
@@ -21,7 +23,7 @@ export const fetchBudgets = createAsyncThunk(
 export const addBudget = createAsyncThunk(
   "analytics/addBudget",
   async (budgetData) => {
-    const res = await axio.post("/api/add-budget", budgetData);
+    const res = await axio.post("/add-budget", budgetData);
     return res.data;
   }
 );

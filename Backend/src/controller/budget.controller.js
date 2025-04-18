@@ -24,6 +24,18 @@ import { Transaction } from '../models/Transaction.model.js';
   }
 };
 
+const deleteB = async(req, res)=>{
+  try {
+    const {_id} = req.params;
+    await Budget.findByIdAndDelete(_id)
+    return res.status(200).json({message:"deleted!!"})
+    
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+
+  }
+}
+
 // 📄 Get Budgets for a Month
  const getBudgetsByMonth = async (req, res) => {
   try {
@@ -92,4 +104,4 @@ import { Transaction } from '../models/Transaction.model.js';
     }
   };
 
-export {getBudgetsByMonth,upsertBudget, BudgetVsActual}
+export {getBudgetsByMonth,upsertBudget, BudgetVsActual,deleteB}

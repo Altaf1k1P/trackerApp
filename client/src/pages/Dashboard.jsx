@@ -2,7 +2,7 @@ import React from 'react'
 import CategoryBreakdown from '@/components/ui/category-breakdown'
 import RecentTransactions from '@/components/recent-transactions'
 import BudgetVsActualChart from '@/components/BudgetVsActualChart'
-import {fetchBudgetVsActual} from "@/store/analyticsSlice"
+// import {fetchBudgetVsActual} from "@/store/analyticsSlice"
 
 function Dashboard() {
   return (

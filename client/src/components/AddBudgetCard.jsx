@@ -3,16 +3,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 
-const categories = ["Food", "Transport", "Entertainment", "Health", "Shopping", "Other"];
+const categories = ["Food", "Transport", "Entertainment", "Health", "Shopping", "Others"];
 
 const AddBudgetCard = ({ onAdd }) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
+    console.log("Budget added:", data);
     const newBudget = {
       id: Date.now(),
       amount: parseFloat(data.amount),
       category: data.category,
+      month: data.month, // example: "2025-04"
     };
     onAdd(newBudget);
     reset();
@@ -36,6 +38,13 @@ const AddBudgetCard = ({ onAdd }) => {
             className="p-2 border rounded"
           />
           {errors.amount && <span className="text-red-500 text-sm">Amount is required</span>}
+
+          <input
+            {...register("month", { required: true })}
+            type="month"
+            className="p-2 border rounded"
+          />
+          {errors.month && <span className="text-red-500 text-sm">Month is required</span>}
 
           <Button type="submit">Add Budget</Button>
         </form>
