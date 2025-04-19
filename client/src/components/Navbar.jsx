@@ -7,7 +7,7 @@ function Navbar({ onCreateClick }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-sm px-6 py-4 rounded-b-xl border-b">
+    <nav className="sticky top-0 z-1000 bg-white shadow-sm px-6 py-4 rounded-b-xl border-b">
       <div className="flex items-center justify-between">
         {/* Left: Logo & Mobile Menu Icon */}
         <div className="flex items-center gap-3">
