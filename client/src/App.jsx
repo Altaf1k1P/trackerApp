@@ -4,6 +4,7 @@ import { addTransaction } from "./store/transactionSlice.js";
 import Navbar from "./components/Navbar";
 import AddTransactionDialog from "./components/formPopup/AddTransactionDialog";
 import { Outlet } from "react-router";
+import "./App.css"; 
 
 const App = () => {
   const [open, setOpen] = useState(false);

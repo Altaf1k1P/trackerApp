@@ -7,33 +7,62 @@ function Navbar({ onCreateClick }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <nav className="relative flex items-center justify-between sticky top-0 px-6 py-4 bg-white shadow-sm rounded-b-xl">
-      {/* Left: Logo + Brand */}
-      <div className="flex items-center space-x-2">
-        <Menu
-          onClick={() => setIsDropdownOpen((prev) => !prev)}
-          className="w-5 h-5 text-black md:hidden cursor-pointer"
-        />
-        <span className="font-bold text-lg">Cashflow</span>
+    <nav className="sticky top-0 z-50 bg-white shadow-sm px-6 py-4 rounded-b-xl border-b">
+      <div className="flex items-center justify-between">
+        {/* Left: Logo & Mobile Menu Icon */}
+        <div className="flex items-center gap-3">
+          <Menu
+            onClick={() => setIsDropdownOpen((prev) => !prev)}
+            className="w-6 h-6 text-gray-700 md:hidden cursor-pointer"
+          />
+          <Link to="/" className="text-xl font-bold text-gray-900 tracking-tight">
+            Cashflow
+          </Link>
+        </div>
+
+        {/* Center: Desktop Nav */}
+        <div className="hidden md:flex gap-6 text-sm font-medium text-gray-700">
+          <Link
+            to="/"
+            className="hover:text-blue-600 transition-colors duration-200"
+          >
+            Home
+          </Link>
+          <Link
+            to="/dashboard"
+            className="hover:text-blue-600 transition-colors duration-200"
+          >
+            Dashboard
+          </Link>
+        </div>
+
+        {/* Right: Create Button */}
+        <Button
+          onClick={onCreateClick}
+          className="rounded-full px-5 py-1.5 text-sm font-semibold"
+        >
+          Create
+        </Button>
       </div>
 
-      {/* Center: Nav Links (desktop) */}
-      <div className="hidden md:flex space-x-6 font-medium text-sm text-gray-800">
-        <Link to="/">Home</Link>
-        <Link to="/dashboard">Dashboard</Link>
-      </div>
-
-      {/* Right: Create Button */}
-      <div className="flex items-center space-x-4">
-        <Button onClick={onCreateClick} className="rounded-xl px-4">Create</Button>
-      </div>
-
-      {/* Dropdown Menu (mobile) */}
+      {/* Mobile Dropdown */}
       {isDropdownOpen && (
-        <div className="absolute top-full left-0 mt-2 w-full bg-white shadow-lg rounded-b-xl md:hidden z-10">
-          <div className="flex flex-col space-y-2 p-4 text-sm text-gray-800 font-medium">
-            <Link to="/" onClick={() => setIsDropdownOpen(false)}>Home</Link>
-            <Link to="/dashboard" onClick={() => setIsDropdownOpen(false)}>Dashboard</Link>
+        <div className="md:hidden mt-2 animate-slideDown">
+          <div className="flex flex-col bg-white shadow rounded-lg p-4 space-y-3 text-sm font-medium text-gray-700">
+            <Link
+              to="/"
+              onClick={() => setIsDropdownOpen(false)}
+              className="hover:text-blue-600 transition-colors"
+            >
+              Home
+            </Link>
+            <Link
+              to="/dashboard"
+              onClick={() => setIsDropdownOpen(false)}
+              className="hover:text-blue-600 transition-colors"
+            >
+              Dashboard
+            </Link>
           </div>
         </div>
       )}
