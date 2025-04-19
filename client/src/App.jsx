@@ -24,7 +24,9 @@ const App = () => {
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen text-black">
-      <Navbar onCreateClick={handleCreateClick} />
+      <Navbar 
+      onCreateClick={handleCreateClick} 
+      />
       <main>
         <Outlet context={{ setOpen, setInitialData }} />
       </main>
