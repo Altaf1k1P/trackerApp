@@ -57,24 +57,26 @@ const Home = () => {
   return (
     <main className="min-h-screen bg-gray-100 p-4 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       <AddBudgetCard onAdd={handleBudgetSubmit} />
-
+      <InsightsCard />
+      <SummaryCard transactions={transactions} />
+      
       <BarChartCard transactions={transactions} budgets={budgets} />
 
-      <TransactionListCard
-        transactions={transactions}
-        onDelete={handleDelete}
-        onEdit={handleEdit}
-      />
-
       <PieChartCard transactions={transactions} />
-      <SummaryCard transactions={transactions} />
-      <InsightsCard />
+
+    
+     
 
       <AddTransactionDialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
         onSubmit={handleDialogSubmit}
         initialData={editData}
+      />
+      <TransactionListCard
+        transactions={transactions}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
       />
     </main>
   );
