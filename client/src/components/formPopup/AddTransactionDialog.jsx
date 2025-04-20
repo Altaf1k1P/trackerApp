@@ -49,7 +49,7 @@ const AddTransactionDialog = ({ open, onClose, onSubmit, initialData }) => {
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4 mt-2">
-          <div>
+        
             <Label>Description</Label>
             <Input
               autoFocus
@@ -59,9 +59,9 @@ const AddTransactionDialog = ({ open, onClose, onSubmit, initialData }) => {
             {errors.description && (
               <p className="text-sm text-red-500">Description is required</p>
             )}
-          </div>
+          
 
-          <div>
+        
             <Label>Amount</Label>
             <Input
               type="number"
@@ -72,14 +72,14 @@ const AddTransactionDialog = ({ open, onClose, onSubmit, initialData }) => {
             {errors.amount && (
               <p className="text-sm text-red-500">Amount is required</p>
             )}
-          </div>
+          
 
-          <div>
+        
             <Label>Date</Label>
             <Input type="date" {...register("date")} />
-          </div>
+          
 
-          <div>
+        
             <Label htmlFor="category">Category</Label>
             <select
               id="category"
@@ -92,7 +92,7 @@ const AddTransactionDialog = ({ open, onClose, onSubmit, initialData }) => {
                 </option>
               ))}
             </select>
-          </div>
+          
 
           <Button type="submit" className="w-full">
             {initialData ? "Update" : "Add"}

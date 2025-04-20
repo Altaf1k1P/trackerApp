@@ -17,11 +17,21 @@ import InsightsCard from "@/components/InsightsCard";
 import TransactionListCard from "@/components/TransactionListCard";
 import AddTransactionDialog from "@/components/formPopup/AddTransactionDialog";
 
+// Skeleton card for loading state
+const SkeletonCard = () => (
+  <div className="animate-pulse col-span-1 h-40 bg-white rounded-xl shadow p-4 space-y-3">
+    <div className="h-6 bg-gray-300 rounded w-1/3" />
+    <div className="h-4 bg-gray-200 rounded w-2/3" />
+    <div className="h-4 bg-gray-200 rounded w-1/2" />
+  </div>
+);
+
 const Home = () => {
   const dispatch = useDispatch();
 
   const transactions = useSelector((state) => state.transactions.list);
   const budgets = useSelector((state) => state.analytics.items); 
+  const loading = useSelector((state) => state.transactions.loading);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -58,11 +68,19 @@ const Home = () => {
     <main className="min-h-screen bg-gray-100 p-2 grid gap-6 grid-cols-1 sm:p-6 md:grid-cols-2 lg:grid-cols-3">
       <AddBudgetCard onAdd={handleBudgetSubmit} />
       <InsightsCard />
-      <SummaryCard transactions={transactions} />
-      
-      <BarChartCard transactions={transactions} budgets={budgets} />
-
-      <PieChartCard transactions={transactions} />
+      {loading ? (
+        <>
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </>
+      ) : (
+        <>
+          <SummaryCard transactions={transactions} />
+          <BarChartCard transactions={transactions} budgets={budgets} />
+          <PieChartCard transactions={transactions} />
+        </>
+      )}
 
     
      
