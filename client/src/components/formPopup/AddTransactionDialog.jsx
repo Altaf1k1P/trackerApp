@@ -42,7 +42,7 @@ const AddTransactionDialog = ({ open, onClose, onSubmit, initialData }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="backdrop-ios rounded-lg">
+      <DialogContent className="bg-white rounded-xl shadow-lg">
         <DialogHeader>
           <DialogTitle>
             {initialData ? "Edit Transaction" : "Add Transaction"}
